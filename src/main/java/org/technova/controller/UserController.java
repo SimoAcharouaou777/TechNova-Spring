@@ -21,11 +21,22 @@ public class UserController {
 
 
 
-    @GetMapping("/create")
+    @GetMapping("/list")
     public String showCreateUserForm(Model model){
         List<User> users = userService.getAllUsers();
         model.addAttribute("users", users);
         return "listUsers";
+    }
+
+    @GetMapping("/create")
+    public String showCreateUserForm(User user){
+        return "createUser";
+    }
+
+    @PostMapping("/create")
+    public String createUser(User user){
+        userService.addUser(user);
+        return "redirect:/users/list";
     }
 
 
